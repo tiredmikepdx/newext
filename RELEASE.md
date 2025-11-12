@@ -2,7 +2,54 @@
 
 This guide explains how to create a new release of the Bambu Studio MCP Extension.
 
-## Prerequisites
+## Automated Release Process (Recommended) ⭐
+
+The easiest way to create a release is using GitHub Actions, which automatically builds and packages the extension for Windows installation.
+
+### Quick Release Steps
+
+1. **Update Version Numbers** (in `package.json`, `manifest.json`, and `src/index.ts`)
+2. **Update Changelog** in `README.md`
+3. **Commit and Push** changes to `main` branch
+4. **Create and Push a Version Tag**:
+   ```bash
+   git tag -a v1.1.0 -m "Release version 1.1.0"
+   git push origin v1.1.0
+   ```
+5. **Done!** GitHub Actions will automatically:
+   - Build the TypeScript code
+   - Create the `.mcpb` package
+   - Create a GitHub release
+   - Attach the `.mcpb` file to the release
+
+The release will be available at: `https://github.com/tiredmikepdx/newext/releases`
+
+### Available GitHub Actions Workflows
+
+1. **Build and Test** (`.github/workflows/build-and-test.yml`)
+   - Runs automatically on push/PR
+   - Tests build on Windows, macOS, and Linux
+   - Validates with Node.js 18.x and 20.x
+
+2. **Build Windows Package** (`.github/workflows/build-package.yml`)
+   - Creates `.mcpb` package for Windows
+   - Can be triggered manually from Actions tab
+   - Uploads package as workflow artifact
+   - Runs automatically when source files change
+
+3. **Release** (`.github/workflows/release.yml`)
+   - Automatically triggered by version tags (e.g., `v1.1.0`)
+   - Builds on Windows for optimal compatibility
+   - Creates GitHub release with `.mcpb` package attached
+   - Includes installation instructions in release notes
+
+---
+
+## Manual Release Process (Advanced)
+
+For developers who prefer manual control or need to troubleshoot the build process.
+
+### Prerequisites
 
 - Node.js 18.0.0 or higher
 - npm
@@ -11,7 +58,7 @@ This guide explains how to create a new release of the Bambu Studio MCP Extensio
   npm install -g @anthropic-ai/mcpb
   ```
 
-## Release Process
+## Manual Release Steps
 
 ### 1. Update Version
 
@@ -107,10 +154,29 @@ This will create `bambu-studio-mcp.mcpb` in the project root.
 2. Download and test the release package
 3. Update any documentation links if needed
 
+## Manual Build Trigger
+
+You can manually trigger the Windows package build workflow without creating a release:
+
+1. Go to the [Actions tab](https://github.com/tiredmikepdx/newext/actions)
+2. Select "Build Windows Package" workflow
+3. Click "Run workflow" button
+4. Select the branch (usually `main`)
+5. Click "Run workflow"
+
+The workflow will create the `.mcpb` package and upload it as an artifact that you can download for testing.
+
 ## Release Checklist
 
-Before publishing a release, ensure:
+**For Automated Releases:**
+- [ ] Version numbers updated in all files (`package.json`, `manifest.json`, `src/index.ts`)
+- [ ] Changelog updated in `README.md`
+- [ ] Changes committed and pushed to `main`
+- [ ] Version tag created and pushed (e.g., `git tag v1.1.0 && git push origin v1.1.0`)
+- [ ] GitHub Actions workflow completed successfully
+- [ ] Release appears on GitHub with `.mcpb` file attached
 
+**For Manual Releases:**
 - [ ] Version numbers updated in all files
 - [ ] Changelog updated
 - [ ] Code builds without errors (`npm run build`)

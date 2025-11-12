@@ -191,6 +191,16 @@ node dist/index.js
 
 The server communicates via stdio, so you'll need to send MCP protocol messages for testing.
 
+### Automated Builds
+
+This project uses GitHub Actions for automated building and releasing:
+
+- **Build and Test**: Automatically runs on every push/PR to validate builds across Windows, macOS, and Linux
+- **Windows Package**: Creates `.mcpb` packages automatically or can be triggered manually
+- **Releases**: Automatically creates releases with `.mcpb` packages when version tags are pushed
+
+See [Workflow Documentation](.github/WORKFLOWS.md) for details.
+
 ## Supported Bambu Lab Printers
 
 This MCP server provides guidance applicable to all Bambu Lab 3D printers, including:

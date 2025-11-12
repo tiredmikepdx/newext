@@ -41,32 +41,42 @@ jobs:
         run: mcpb pack . bambu-studio-mcp.mcpb
 
       - name: Verify package
-        shell: bash
+        shell: pwsh
         run: |
-          if [ -f bambu-studio-mcp.mcpb ]; then
-            echo "✓ Package created successfully"
-            SIZE=$(ls -lh bambu-studio-mcp.mcpb | awk '{print $5}')
-            echo "Package size: $SIZE"
-          else
-            echo "✗ Package creation failed"
+          if (Test-Path bambu-studio-mcp.mcpb) {
+            Write-Host "✓ Package created successfully"
+            $size = (Get-Item bambu-studio-mcp.mcpb).Length
+            Write-Host "Package size: $([math]::Round($size/1MB, 2)) MB"
+          } else {
+            Write-Error "✗ Package creation failed"
             exit 1
-          fi
+          }
 
       - name: Test server from package
-        shell: bash
+        shell: pwsh
         run: |
           # Create temp directory
-          mkdir -p /tmp/test-package
+          $testDir = Join-Path $env:TEMP "test-package"
+          New-Item -ItemType Directory -Force -Path $testDir | Out-Null
 
           # Unpack the package
-          mcpb unpack bambu-studio-mcp.mcpb /tmp/test-package
+          mcpb unpack bambu-studio-mcp.mcpb $testDir
 
           # Test the server
-          cd /tmp/test-package
-          timeout 3 node dist/index.js 2>&1 | grep -q "Bambu Studio MCP Server running" || \
-          (timeout 3 node dist/index.js 2>&1 || true) | grep "Bambu Studio MCP Server running"
+          Push-Location $testDir
+          $job = Start-Job -ScriptBlock { node dist/index.js 2>&1 }
+          Start-Sleep -Seconds 3
+          $output = Receive-Job -Job $job
+          Stop-Job -Job $job
+          Remove-Job -Job $job
+          Pop-Location
 
-          echo "✓ Server from package works correctly"
+          if ($output -match "Bambu Studio MCP Server running") {
+            Write-Host "✓ Server from package works correctly"
+          } else {
+            Write-Error "✗ Server test failed"
+            exit 1
+          }
 
       - name: Upload .mcpb package
         uses: actions/upload-artifact@v4
@@ -76,18 +86,20 @@ jobs:
           retention-days: 30
 
       - name: Upload build summary
-        shell: bash
+        shell: pwsh
         run: |
-          echo "## Build Summary" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "✓ TypeScript compiled successfully" >> $GITHUB_STEP_SUMMARY
-          echo "✓ Manifest validated" >> $GITHUB_STEP_SUMMARY
-          echo "✓ .mcpb package created" >> $GITHUB_STEP_SUMMARY
-          echo "✓ Server tested and working" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### Package Info" >> $GITHUB_STEP_SUMMARY
-          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-          ls -lh bambu-studio-mcp.mcpb >> $GITHUB_STEP_SUMMARY
-          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "📦 Download the .mcpb package from the workflow artifacts." >> $GITHUB_STEP_SUMMARY
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "## Build Summary"
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value ""
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "✓ TypeScript compiled successfully"
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "✓ Manifest validated"
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "✓ .mcpb package created"
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "✓ Server tested and working"
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value ""
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### Package Info"
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value '```'
+          $fileInfo = Get-Item bambu-studio-mcp.mcpb
+          $sizeInMB = [math]::Round($fileInfo.Length/1MB, 2)
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "$($fileInfo.Name) - $sizeInMB MB"
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value '```'
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value ""
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "📦 Download the .mcpb package from the workflow artifacts."

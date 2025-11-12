@@ -36,23 +36,25 @@ jobs:
         run: mcpb pack . bambu-studio-mcp.mcpb
 
       - name: Test package creation
-        shell: bash
+        shell: pwsh
         run: |
-          if [ -f bambu-studio-mcp.mcpb ]; then
-            echo "✓ Package created successfully"
-            ls -lh bambu-studio-mcp.mcpb
-          else
-            echo "✗ Package creation failed"
+          if (Test-Path bambu-studio-mcp.mcpb) {
+            Write-Host "✓ Package created successfully"
+            $fileInfo = Get-Item bambu-studio-mcp.mcpb
+            $sizeInMB = [math]::Round($fileInfo.Length/1MB, 2)
+            Write-Host "$($fileInfo.Name) - $sizeInMB MB"
+          } else {
+            Write-Error "✗ Package creation failed"
             exit 1
-          fi
+          }
 
       - name: Extract version from tag
         id: version
-        shell: bash
+        shell: pwsh
         run: |
-          VERSION=${GITHUB_REF#refs/tags/v}
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Release version: $VERSION"
+          $version = $env:GITHUB_REF -replace 'refs/tags/v', ''
+          Add-Content -Path $env:GITHUB_OUTPUT -Value "version=$version"
+          Write-Host "Release version: $version"
 
       - name: Create Release
         id: create_release

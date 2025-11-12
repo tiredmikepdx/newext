@@ -31,12 +31,30 @@ jobs:
       - name: Build TypeScript
         run: npm run build
 
-      - name: Test server startup
+      - name: Test server startup (Unix)
+        if: runner.os != 'Windows'
         shell: bash
         run: |
           # Start the server and check if it outputs the expected message
           timeout 3 node dist/index.js 2>&1 | grep -q "Bambu Studio MCP Server running" || \
           (timeout 3 node dist/index.js 2>&1 || true) | grep "Bambu Studio MCP Server running"
+
+      - name: Test server startup (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          # Start the server and check if it outputs the expected message
+          $job = Start-Job -ScriptBlock { node dist/index.js 2>&1 }
+          Start-Sleep -Seconds 3
+          $output = Receive-Job -Job $job
+          Stop-Job -Job $job
+          Remove-Job -Job $job
+          if ($output -match "Bambu Studio MCP Server running") {
+            Write-Host "✓ Server started successfully"
+          } else {
+            Write-Error "✗ Server startup failed"
+            exit 1
+          }
 
       - name: Upload build artifacts
         if: matrix.os == 'windows-latest' && matrix.node-version == '20.x'

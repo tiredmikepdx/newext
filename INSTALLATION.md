@@ -1,8 +1,59 @@
 # Installation Guide for Bambu Studio MCP Server
 
-This guide will help you install and configure the Bambu Studio MCP Server for Claude Desktop, even if you're not familiar with development tools.
+This guide provides multiple installation methods for the Bambu Studio MCP Server for Claude Desktop.
 
-## Prerequisites
+## Method 1: One-Click Installation (.mcpb) ⭐ **Recommended**
+
+The easiest way to install! No manual configuration or Node.js required.
+
+### Prerequisites
+- **Claude Desktop** application (version 0.10.0 or higher)
+- Windows, macOS, or Linux computer
+
+### Installation Steps
+
+1. **Download the Extension Package**
+   - Go to the [Releases page](https://github.com/tiredmikepdx/newext/releases)
+   - Download the latest `bambu-studio-mcp.mcpb` file
+
+2. **Install in Claude Desktop**
+   
+   Choose one of these methods:
+   
+   **Option A - Double Click (Easiest)**:
+   - Simply double-click the downloaded `.mcpb` file
+   - Claude Desktop will open and prompt you to install
+   - Click "Install" to confirm
+   
+   **Option B - Through Settings**:
+   - Open Claude Desktop
+   - Go to Settings → Extensions
+   - Click "Install Extension"
+   - Select the downloaded `.mcpb` file
+   - Click "Install" to confirm
+
+3. **Done!** 🎉
+   
+   The extension is now installed and ready to use. Try asking Claude:
+   - "What's the difference between STL and 3MF files?"
+   - "What print settings should I use for PETG?"
+   - "How do I fix first layer adhesion issues?"
+
+### Benefits of .mcpb Installation
+- ✅ No Node.js installation required
+- ✅ No manual configuration files to edit
+- ✅ All dependencies bundled
+- ✅ Works on all platforms (macOS, Windows, Linux)
+- ✅ Easy updates through Claude Desktop
+- ✅ Simple to uninstall if needed
+
+---
+
+## Method 2: Manual Installation (Advanced Users)
+
+For developers or users who prefer manual setup.
+
+### Prerequisites
 
 Before you begin, you need:
 
@@ -10,7 +61,7 @@ Before you begin, you need:
 2. **Claude Desktop** application
 3. A computer running Windows, macOS, or Linux
 
-## Step 1: Install Node.js
+### Step 1: Install Node.js
 
 ### Windows
 1. Visit [nodejs.org](https://nodejs.org/)
@@ -48,7 +99,7 @@ npm --version
 
 You should see version numbers (e.g., `v20.11.0` and `10.2.4`).
 
-## Step 2: Download the MCP Server
+### Step 2: Download the MCP Server
 
 ### Option A: Download ZIP (Easiest)
 1. Go to [https://github.com/tiredmikepdx/newext](https://github.com/tiredmikepdx/newext)
@@ -63,7 +114,7 @@ git clone https://github.com/tiredmikepdx/newext.git
 cd newext
 ```
 
-## Step 3: Install and Build
+### Step 3: Install and Build
 
 Open a terminal/command prompt in the downloaded folder and run:
 
@@ -77,7 +128,7 @@ npm run build
 
 Wait for both commands to complete. You should see "found 0 vulnerabilities" and no errors.
 
-## Step 4: Configure Claude Desktop
+### Step 4: Configure Claude Desktop
 
 ### Find the Config File
 
@@ -171,7 +222,7 @@ pwd
 # Copy the output and add /dist/index.js
 ```
 
-## Step 5: Restart Claude Desktop
+### Step 5: Restart Claude Desktop
 
 1. **Quit Claude Desktop completely**
    - Windows: Right-click system tray icon → Quit
@@ -184,7 +235,7 @@ pwd
    - You might see a notification about the new MCP server
    - Check Claude Desktop's logs if it doesn't appear
 
-## Step 6: Test the Installation
+### Step 6: Test the Installation
 
 In Claude Desktop, try asking questions like:
 

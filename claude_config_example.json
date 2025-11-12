@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "bambu-studio": {
+      "command": "node",
+      "args": ["/absolute/path/to/newext/dist/index.js"]
+    }
+  }
+}

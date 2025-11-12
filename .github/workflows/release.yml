@@ -9,95 +9,96 @@ jobs:
   build-and-release:
     name: Build and Create Release
     runs-on: windows-latest
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-    
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20.x'
-        cache: 'npm'
-    
-    - name: Install dependencies
-      run: npm ci
-    
-    - name: Build TypeScript
-      run: npm run build
-    
-    - name: Install mcpb CLI
-      run: npm install -g @anthropic-ai/mcpb
-    
-    - name: Validate manifest
-      run: mcpb validate manifest.json
-    
-    - name: Create .mcpb package
-      run: mcpb pack . bambu-studio-mcp.mcpb
-    
-    - name: Test package creation
-      shell: bash
-      run: |
-        if [ -f bambu-studio-mcp.mcpb ]; then
-          echo "✓ Package created successfully"
-          ls -lh bambu-studio-mcp.mcpb
-        else
-          echo "✗ Package creation failed"
-          exit 1
-        fi
-    
-    - name: Extract version from tag
-      id: version
-      shell: bash
-      run: |
-        VERSION=${GITHUB_REF#refs/tags/v}
-        echo "version=$VERSION" >> $GITHUB_OUTPUT
-        echo "Release version: $VERSION"
-    
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: Bambu Studio MCP v${{ steps.version.outputs.version }}
-        body: |
-          # Bambu Studio MCP Extension v${{ steps.version.outputs.version }}
-          
-          ## Installation
-          
-          ### One-Click Installation (Recommended) ⭐
-          
-          1. Download `bambu-studio-mcp.mcpb` below
-          2. Double-click the file to install in Claude Desktop
-          3. Done! No configuration needed.
-          
-          ### Manual Installation
-          
-          See the [Installation Guide](https://github.com/tiredmikepdx/newext/blob/main/INSTALLATION.md) for detailed instructions.
-          
-          ## What's New
-          
-          <!-- Add release notes here -->
-          
-          ## Requirements
-          
-          - Claude Desktop (version 0.10.0 or higher)
-          - Windows, macOS, or Linux
-          
-          ## Support
-          
-          For issues or questions, please [open an issue](https://github.com/tiredmikepdx/newext/issues).
-        draft: false
-        prerelease: false
-    
-    - name: Upload Release Asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./bambu-studio-mcp.mcpb
-        asset_name: bambu-studio-mcp.mcpb
-        asset_content_type: application/octet-stream
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build TypeScript
+        run: npm run build
+
+      - name: Install mcpb CLI
+        run: npm install -g @anthropic-ai/mcpb
+
+      - name: Validate manifest
+        run: mcpb validate manifest.json
+
+      - name: Create .mcpb package
+        run: mcpb pack . bambu-studio-mcp.mcpb
+
+      - name: Test package creation
+        shell: bash
+        run: |
+          if [ -f bambu-studio-mcp.mcpb ]; then
+            echo "✓ Package created successfully"
+            ls -lh bambu-studio-mcp.mcpb
+          else
+            echo "✗ Package creation failed"
+            exit 1
+          fi
+
+      - name: Extract version from tag
+        id: version
+        shell: bash
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Release version: $VERSION"
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Bambu Studio MCP v${{ steps.version.outputs.version }}
+          body: |
+            # Bambu Studio MCP Extension v${{ steps.version.outputs.version }}
+
+            ## Installation
+
+            ### One-Click Installation (Recommended) ⭐
+
+            1. Download `bambu-studio-mcp.mcpb` below
+            2. Double-click the file to install in Claude Desktop
+            3. Done! No configuration needed.
+
+            ### Manual Installation
+
+            See [Installation Guide](https://github.com/tiredmikepdx/newext/blob/main/INSTALLATION.md)
+            for detailed instructions.
+
+            ## What's New
+
+            <!-- Add release notes here -->
+
+            ## Requirements
+
+            - Claude Desktop (version 0.10.0 or higher)
+            - Windows, macOS, or Linux
+
+            ## Support
+
+            For issues or questions, please [open an issue](https://github.com/tiredmikepdx/newext/issues).
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./bambu-studio-mcp.mcpb
+          asset_name: bambu-studio-mcp.mcpb
+          asset_content_type: application/octet-stream

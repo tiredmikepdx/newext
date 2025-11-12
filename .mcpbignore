@@ -1,0 +1,38 @@
+# Development and build artifacts
+.git
+.github
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Development dependencies (TypeScript compiler not needed in runtime)
+node_modules/typescript
+node_modules/@types
+
+# Source files (only need compiled dist/)
+src/
+tsconfig.json
+
+# Documentation files (keep README for reference)
+CONTRIBUTING.md
+INSTALLATION.md
+
+# Test files and examples
+test/
+tests/
+*.test.js
+*.test.ts
+*.spec.js
+*.spec.ts
+example/
+examples/
+
+# Build artifacts that aren't needed
+*.map
+*.d.ts
+*.d.ts.map
+
+# Package artifacts
+*.tgz
+package-lock.json

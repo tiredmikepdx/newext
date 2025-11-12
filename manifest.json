@@ -1,0 +1,57 @@
+{
+  "manifest_version": "0.3",
+  "name": "bambu-studio-mcp",
+  "display_name": "Bambu Studio MCP Server",
+  "version": "1.0.0",
+  "description": "Claude Desktop Extension for Bambu Studio 3D printing workflows and assistance",
+  "long_description": "A comprehensive MCP server that provides expert guidance on 3D printing workflows, file formats, print settings, troubleshooting, and material selection specifically tailored for Bambu Studio and Bambu Lab 3D printers. Includes detailed information on STL, 3MF, G-code formats, print settings optimization, common issue troubleshooting, and material selection assistance.",
+  "author": {
+    "name": "tiredmikepdx",
+    "url": "https://github.com/tiredmikepdx"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tiredmikepdx/newext.git"
+  },
+  "homepage": "https://github.com/tiredmikepdx/newext",
+  "support": "https://github.com/tiredmikepdx/newext/issues",
+  "icon": "icon.png",
+  "keywords": ["bambu-studio", "3d-printing", "bambu-lab", "mcp", "claude", "desktop-extension"],
+  "license": "MIT",
+  "compatibility": {
+    "platforms": ["darwin", "win32", "linux"],
+    "runtimes": {
+      "node": ">=18.0.0"
+    }
+  },
+  "server": {
+    "type": "node",
+    "entry_point": "dist/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/dist/index.js"]
+    }
+  },
+  "tools": [
+    {
+      "name": "get_file_format_info",
+      "description": "Get detailed information about 3D printing file formats (STL, 3MF, G-code, OBJ, STEP) including their purposes, capabilities, and when to use them in Bambu Studio"
+    },
+    {
+      "name": "get_3mf_info",
+      "description": "Get comprehensive information about 3MF files in Bambu Studio, including structure, compatibility, metadata handling, and best practices"
+    },
+    {
+      "name": "recommend_print_settings",
+      "description": "Get recommendations for optimal print settings in Bambu Studio based on material type, desired quality, and print requirements"
+    },
+    {
+      "name": "troubleshoot_issue",
+      "description": "Get troubleshooting guidance for common Bambu Studio and 3D printing issues, including print failures, quality problems, and software issues"
+    },
+    {
+      "name": "select_material",
+      "description": "Get recommendations for selecting the right material for a 3D printing project based on part requirements and use case"
+    }
+  ]
+}

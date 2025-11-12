@@ -102,9 +102,25 @@ Then configure Claude Desktop with:
 }
 ```
 
-### Method 3: As Desktop Extension (.mcpb/.dxt) - Coming Soon
+### Method 3: One-Click Installation (.mcpb) ⭐ **Recommended**
 
-One-click installation through Claude Desktop's extension manager.
+The easiest way to install! No manual configuration needed.
+
+1. **Download the extension package**:
+   - Download `bambu-studio-mcp.mcpb` from the [latest release](https://github.com/tiredmikepdx/newext/releases)
+
+2. **Install in Claude Desktop**:
+   - **Option A**: Double-click the `.mcpb` file (it will open in Claude Desktop)
+   - **Option B**: In Claude Desktop, go to Settings → Extensions → Install Extension and select the file
+
+3. **Done!** The extension is ready to use immediately. No configuration files to edit, no paths to set up.
+
+**Benefits**:
+- ✅ Zero configuration required
+- ✅ All dependencies bundled
+- ✅ Works on macOS, Windows, and Linux
+- ✅ Automatic updates through Claude Desktop
+- ✅ Easy to uninstall if needed
 
 ## Usage Examples
 

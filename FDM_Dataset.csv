@@ -1,0 +1,51 @@
+Layer_height_mm,Infill_density_%,Infill_pattern,Bed_temperature_C,Print_speed_mm_s,Material,Fan_speed_m_s,Nozzle_diameter_mm,Build_volume_cm3,Filament_type,Filament_diameter_mm,Melting_temperature_C,Retraction_distance_mm,Retraction_speed_mm_s,Flow_rate_%,Acceleration_mm_s2,Linear_advance,Loading_rate_N_s,Microstructure,Material_type
+0.04,40,Honey comb,71,40,abs,75,0.2,1123,ABS,2.85,215,2.18,23,100,2331,0.49,34,coarse,composite
+0.06,70,grid,81,40,pla,100,0.4,1069,PETG,1.75,191,3.89,58,93,1761,0.79,15,fine,composite
+0.02,40,Honey comb,80,40,abs,100,0.2,2038,PETG,1.75,208,4.62,20,101,962,0.71,44,fine,composite
+0.02,40,Honey comb,71,40,pla,50,0.4,2326,PLA,1.75,240,3.54,27,103,1978,0.64,26,fine,composite
+0.06,70,Honey comb,78,40,pla,25,0.6,1786,ABS,1.75,221,5.0,38,94,1661,0.73,42,coarse,composite
+0.06,10,grid,83,40,pla,25,0.4,1806,ABS,2.85,222,5.4,37,103,2795,0.41,22,coarse,composite
+0.06,90,Honey comb,65,40,abs,50,0.6,1179,PLA,2.85,212,1.56,36,98,1348,0.68,19,coarse,pure
+0.06,90,grid,82,40,abs,0,0.6,1694,PETG,1.75,201,4.11,31,91,1784,0.56,22,fine,composite
+0.02,70,Honey comb,80,40,pla,0,0.2,1360,PETG,2.85,245,4.49,21,93,1913,0.42,22,fine,composite
+0.06,90,grid,64,40,pla,100,0.2,2890,ABS,2.85,182,4.38,22,104,2811,0.29,27,fine,composite
+0.02,40,grid,79,40,pla,25,0.4,2878,PETG,2.85,223,2.23,51,95,1409,0.58,40,coarse,composite
+0.04,40,grid,84,40,pla,0,0.4,2395,ABS,2.85,207,5.83,45,108,2672,0.22,13,fine,composite
+0.06,10,grid,84,40,abs,75,0.6,2403,PETG,1.75,240,1.85,53,94,2585,0.69,49,coarse,pure
+0.04,40,grid,75,40,pla,0,0.6,1866,ABS,2.85,214,3.1,50,90,2004,0.24,22,fine,pure
+0.06,10,grid,72,40,abs,75,0.6,1278,ABS,1.75,248,2.04,22,96,2445,0.17,24,coarse,pure
+0.02,90,grid,80,40,pla,0,0.4,2433,ABS,1.75,199,3.98,45,106,1775,0.61,36,fine,composite
+0.06,70,Honey comb,72,40,abs,0,0.6,1963,PETG,1.75,180,2.11,46,105,738,0.55,44,coarse,pure
+0.06,90,grid,70,40,abs,25,0.2,2970,PETG,1.75,209,3.05,22,104,2768,0.46,25,fine,pure
+0.04,90,grid,84,40,abs,0,0.6,1567,PLA,1.75,217,4.4,42,96,1270,1.0,12,fine,pure
+0.06,90,grid,82,40,abs,0,0.2,1572,ABS,1.75,188,2.37,32,100,2880,0.21,13,fine,pure
+0.02,70,grid,74,40,abs,100,0.6,1777,PLA,1.75,248,1.31,51,105,1987,0.35,40,fine,pure
+0.04,40,grid,66,40,pla,100,0.4,2425,ABS,1.75,189,3.15,52,97,1908,0.78,32,coarse,pure
+0.04,10,Honey comb,69,40,abs,25,0.4,2714,ABS,2.85,180,1.36,41,98,2043,0.44,28,coarse,pure
+0.04,70,Honey comb,62,40,abs,50,0.2,1325,ABS,2.85,224,5.14,54,99,2819,0.22,24,fine,pure
+0.02,10,Honey comb,76,40,pla,50,0.2,2192,PLA,1.75,249,3.78,26,105,1648,0.54,37,coarse,pure
+0.04,90,Honey comb,65,40,pla,50,0.6,2124,ABS,1.75,229,5.02,44,101,784,0.99,15,fine,composite
+0.06,10,grid,71,40,abs,75,0.4,1872,PLA,1.75,231,4.78,35,105,2113,0.2,32,fine,composite
+0.04,40,Honey comb,71,40,abs,50,0.4,1590,ABS,2.85,180,1.64,44,105,632,0.9,12,fine,pure
+0.04,40,grid,78,40,abs,25,0.4,2164,ABS,2.85,202,2.29,26,98,899,0.33,23,coarse,pure
+0.02,40,grid,64,40,pla,75,0.6,1804,PLA,1.75,238,3.22,54,109,856,0.99,26,coarse,composite
+0.06,10,grid,74,40,abs,75,0.2,1149,PETG,1.75,196,5.27,57,94,2308,0.17,20,fine,pure
+0.04,90,grid,84,40,abs,100,0.6,1568,PLA,1.75,221,4.16,47,107,1910,0.91,13,coarse,pure
+0.04,70,Honey comb,69,40,pla,100,0.6,1080,PETG,2.85,190,5.94,38,107,2056,0.25,37,fine,pure
+0.02,40,grid,83,40,pla,25,0.2,1336,PETG,2.85,193,2.33,28,96,2638,0.8,24,fine,pure
+0.02,90,grid,68,40,pla,75,0.2,1969,PLA,2.85,211,1.59,46,99,2209,0.6,18,coarse,pure
+0.02,70,grid,61,40,abs,25,0.6,2312,PLA,2.85,242,2.4,56,94,523,0.64,31,coarse,pure
+0.04,70,Honey comb,67,40,pla,50,0.2,2008,ABS,1.75,183,5.9,35,107,2750,0.33,36,coarse,pure
+0.06,70,Honey comb,73,40,abs,50,0.4,1974,PLA,1.75,225,5.07,24,105,2026,0.51,23,coarse,pure
+0.04,90,grid,61,40,pla,0,0.6,1767,PETG,1.75,219,1.83,51,94,2461,0.44,45,fine,composite
+0.02,40,Honey comb,83,40,abs,75,0.2,1583,PLA,1.75,229,2.44,23,100,1620,0.73,14,coarse,pure
+0.04,70,Honey comb,75,40,pla,75,0.4,1134,PLA,2.85,216,2.3,22,100,2440,0.7,42,fine,pure
+0.04,40,grid,61,40,abs,25,0.4,2355,PLA,2.85,233,1.9,37,98,2493,0.27,32,coarse,pure
+0.02,90,Honey comb,70,40,pla,100,0.4,2645,PETG,1.75,228,3.69,29,100,2633,0.88,42,coarse,composite
+0.04,90,grid,79,40,abs,50,0.6,2091,PLA,1.75,244,2.19,59,105,667,0.69,21,fine,composite
+0.04,70,Honey comb,61,40,abs,25,0.6,2952,ABS,2.85,191,5.08,46,109,2779,0.17,29,fine,composite
+0.06,10,Honey comb,68,40,abs,25,0.6,2783,PLA,2.85,226,2.44,21,97,2016,0.56,16,fine,pure
+0.02,10,grid,62,40,abs,0,0.4,2691,PLA,1.75,190,5.63,26,105,1074,0.25,32,fine,composite
+0.06,40,Honey comb,67,40,abs,100,0.4,2120,PLA,1.75,203,4.16,45,98,538,0.7,17,coarse,composite
+0.06,10,grid,77,40,pla,75,0.6,1528,PLA,2.85,199,5.02,29,91,830,0.45,45,coarse,pure
+0.06,70,grid,73,40,pla,100,0.2,2301,PLA,1.75,199,2.65,47,91,921,0.83,43,coarse,pure

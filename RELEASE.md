@@ -13,58 +13,77 @@ This guide explains how to create a new release of the Bambu Studio MCP Extensio
 
 ## Release Process
 
-### 1. Update Version
+### Option A: Automated Release (Recommended)
 
-Update the version number in these files:
+The repository includes a GitHub Action that automatically builds the `.mcpb` file.
 
-- `package.json` - Update the `version` field
-- `manifest.json` - Update the `version` field
-- `src/index.ts` - Update the version in the Server initialization (line 42)
+1. **Update Version**: Update version numbers in:
+   - `package.json` - Update the `version` field
+   - `manifest.json` - Update the `version` field
+   - `src/index.ts` - Update the version in the Server initialization (line 42)
 
-Make sure all three versions match (e.g., `1.0.0` → `1.1.0`).
+2. **Update Changelog**: Update `README.md` changelog section with changes
 
-### 2. Update Changelog
+3. **Commit and Push**:
+   ```bash
+   git add package.json manifest.json src/index.ts README.md
+   git commit -m "Bump version to 1.1.0"
+   git push
+   ```
 
-Update `README.md` changelog section with:
-- New version number
-- Release date
-- List of changes/features
+4. **Create GitHub Release**:
+   - Go to https://github.com/tiredmikepdx/newext/releases
+   - Click "Create a new release"
+   - Create tag `v1.1.0` (or your version)
+   - Fill in title and description
+   - Click "Publish release"
+   
+5. **GitHub Action runs automatically**:
+   - The workflow builds the TypeScript code
+   - Creates the `.mcpb` package
+   - Uploads it as a release asset automatically
+   - No manual build or upload needed!
 
-### 3. Commit Version Changes
+### Option B: Manual Release
 
-```bash
-git add package.json manifest.json src/index.ts README.md
-git commit -m "Bump version to 1.1.0"
-git push
-```
+If you prefer to build manually or need to test locally first:
 
-### 4. Build the Extension
+1. **Update Version** (same as above)
 
-Run the build script:
+2. **Update Changelog** (same as above)
 
-```bash
-./scripts/build-extension.sh
-```
+3. **Commit Version Changes**:
+   ```bash
+   git add package.json manifest.json src/index.ts README.md
+   git commit -m "Bump version to 1.1.0"
+   git push
+   ```
 
-Or build manually:
+4. **Build the Extension**:
+   
+   Run the build script:
+   ```bash
+   ./scripts/build-extension.sh
+   ```
+   
+   Or build manually:
+   ```bash
+   # Install dependencies
+   npm install
+   
+   # Build TypeScript
+   npm run build
+   
+   # Validate manifest
+   mcpb validate manifest.json
+   
+   # Create package
+   mcpb pack . bambu-studio-mcp.mcpb
+   ```
+   
+   This will create `bambu-studio-mcp.mcpb` in the project root.
 
-```bash
-# Install dependencies
-npm install
-
-# Build TypeScript
-npm run build
-
-# Validate manifest
-mcpb validate manifest.json
-
-# Create package
-mcpb pack . bambu-studio-mcp.mcpb
-```
-
-This will create `bambu-studio-mcp.mcpb` in the project root.
-
-### 5. Test the Package Locally
+### 5. Test the Package Locally (Manual Release Only)
 
 1. **Unpack and verify**:
    ```bash
@@ -79,7 +98,7 @@ This will create `bambu-studio-mcp.mcpb` in the project root.
    - Test the extension with example queries
    - Uninstall after testing
 
-### 6. Create GitHub Release
+### 6. Create GitHub Release (Manual Release Only)
 
 1. **Go to GitHub Releases**:
    - Visit https://github.com/tiredmikepdx/newext/releases
@@ -100,6 +119,8 @@ This will create `bambu-studio-mcp.mcpb` in the project root.
 4. **Publish Release**:
    - Check "Set as the latest release"
    - Click "Publish release"
+   
+**Note**: With automated releases (Option A), the `.mcpb` file is built and uploaded automatically when you create the release. You don't need to upload it manually.
 
 ### 7. Verify Release
 
@@ -129,6 +150,48 @@ Follow [Semantic Versioning](https://semver.org/):
 - **MAJOR** (1.0.0 → 2.0.0): Breaking changes
 - **MINOR** (1.0.0 → 1.1.0): New features, backward compatible
 - **PATCH** (1.0.0 → 1.0.1): Bug fixes, backward compatible
+
+## GitHub Action Workflow
+
+The repository includes `.github/workflows/build-mcpb.yml` which automates the build process.
+
+### Triggers
+
+The workflow runs automatically on:
+- **Release Creation**: When you publish a new release
+- **Version Tags**: When you push tags matching `v*.*.*` (e.g., `v1.0.0`)
+- **Manual Trigger**: Via "Actions" tab → "Build MCPB Extension" → "Run workflow"
+
+### What it does
+
+1. Checks out the repository code
+2. Sets up Node.js 18
+3. Installs dependencies with `npm ci`
+4. Builds TypeScript with `npm run build`
+5. Installs the `@anthropic-ai/mcpb` CLI tool
+6. Creates the `.mcpb` package
+7. Uploads as a workflow artifact (90-day retention)
+8. Attaches to the GitHub release automatically
+
+### Testing the Workflow
+
+To test the workflow without creating a release:
+
+1. Go to the "Actions" tab in GitHub
+2. Click "Build MCPB Extension" workflow
+3. Click "Run workflow"
+4. Select the branch
+5. Click "Run workflow"
+
+The built `.mcpb` file will be available as a downloadable artifact in the workflow run.
+
+### Viewing Build Results
+
+After a workflow run completes:
+- Go to "Actions" tab
+- Click on the workflow run
+- Scroll to "Artifacts" section to download the `.mcpb` file
+- Check the logs for any build errors
 
 ## Troubleshooting
 
